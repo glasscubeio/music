@@ -1,0 +1,50 @@
+[
+  {
+    "name": "Inspirational",
+    "cover": "/cover/inspire.jpg",
+    "tracks": [
+      {
+        "title": "Maison",
+        "artist": "Lucie",
+        "src": "/track/maison.mp3",
+        "cover": "/cover/maison.jpeg"
+      },
+      {
+        "title": "Cerca",
+        "artist": "Lucie",
+        "src": "/track/maison.mp3",
+        "cover": "/cover/maison.jpeg"
+      }
+    ]
+  },
+  {
+    "name": "Focus",
+    "cover": "/cover/focus.jpg",
+    "tracks": [
+      {
+        "title": "Andare",
+        "artist": "Unknown",
+        "src": "/track/andare.mp3",
+        "cover": "/cover/andare.webp"
+      },
+      {
+        "title": "The grid",
+        "artist": "Tron legacy",
+        "src": "/track/grid.mp3",
+        "cover": "/cover/tron.webp"
+      }
+    ]
+  },
+  {
+    "name": "Relax",
+    "cover": "/cover/relax.jpg",
+    "tracks": [
+      {
+        "title": "Test Track",
+        "artist": "Unknown",
+        "src": "/track/test.mp3",
+        "cover": "/cover/test.jpg"
+      }
+    ]
+  }
+]
