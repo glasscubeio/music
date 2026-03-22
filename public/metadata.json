@@ -310,6 +310,12 @@
         "cover": "/cover/blinding.jpg"
       },
       {
+        "title": "Sunday mornin comin down",
+        "artist": "Kris Kristofferson",
+        "src": "/track/morning.mp3",
+        "cover": "/cover/morning.jpg"
+      },
+      {
         "title": "Nebo Nad Zemloy",
         "artist": "Temur Temirov",
         "src": "/track/temur.mp3",
