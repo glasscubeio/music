@@ -4,16 +4,40 @@
     "cover": "/cover/inspire.jpg",
     "tracks": [
       {
-        "title": "Maison",
-        "artist": "Lucie",
-        "src": "/track/maison.mp3",
-        "cover": "/cover/maison.jpeg"
+        "title": "Supernatural",
+        "artist": "Vaughn",
+        "src": "/track/supernatural.m4a",
+        "cover": "/cover/supernatural.JPG"
       },
       {
-        "title": "Cerca",
-        "artist": "Lucie",
-        "src": "/track/maison.mp3",
-        "cover": "/cover/maison.jpeg"
+        "title": "Cerca De Ti",
+        "artist": "Hermanos Guiterez",
+        "src": "/track/cerca.mp3",
+        "cover": "/cover/cerca.jpeg"
+      },
+      {
+        "title": "Contact",
+        "artist": "From Space",
+        "src": "/track/contact.mp3",
+        "cover": "/cover/contact.jpg"
+      },
+      {
+        "title": "Birch",
+        "artist": "Noflik",
+        "src": "/track/birch.mp3",
+        "cover": "/cover/birch.jpeg"
+      },
+      {
+        "title": "A memory",
+        "artist": "Zachary David",
+        "src": "/track/memory.mp3",
+        "cover": "/cover/listen.jpg"
+      },
+      {
+        "title": "Fragments",
+        "artist": "Mondo loops",
+        "src": "/track/fragments.mp3",
+        "cover": "/cover/fragment.jpg"
       }
     ]
   },
@@ -23,15 +47,249 @@
     "tracks": [
       {
         "title": "Andare",
-        "artist": "Unknown",
+        "artist": "Dhe Perisann",
         "src": "/track/andare.mp3",
         "cover": "/cover/andare.webp"
+      },
+      {
+        "title": "Monday",
+        "artist": "Dhe Perisann",
+        "src": "/track/monday.mp3",
+        "cover": "/cover/monmotiv.jpg"
       },
       {
         "title": "The grid",
         "artist": "Tron legacy",
         "src": "/track/grid.mp3",
         "cover": "/cover/tron.webp"
+      },
+      {
+        "title": "Arena",
+        "artist": "Tron legacy",
+        "src": "/track/arena.mp3",
+        "cover": "/cover/tron.webp"
+      },
+      {
+        "title": "Armory",
+        "artist": "Tron legacy",
+        "src": "/track/armory.mp3",
+        "cover": "/cover/tron.webp"
+      },
+      {
+        "title": "Overture",
+        "artist": "Tron legacy",
+        "src": "/track/overture.mp3",
+        "cover": "/cover/tron.webp"
+      },
+      {
+        "title": "Son of Flynn",
+        "artist": "Tron legacy",
+        "src": "/track/sonflynn.mp3",
+        "cover": "/cover/tron.webp"
+      },
+      {
+        "title": "Adagio",
+        "artist": "Tron legacy",
+        "src": "/track/adagio.m4a",
+        "cover": "/cover/tron.webp"
+      },
+      {
+        "title": "Arrival",
+        "artist": "Tron legacy",
+        "src": "/track/arrival.m4a",
+        "cover": "/cover/tron.webp"
+      },
+      {
+        "title": "C L U",
+        "artist": "Tron legacy",
+        "src": "/track/clu.m4a",
+        "cover": "/cover/tron.webp"
+      },
+      {
+        "title": "Derezzed",
+        "artist": "Tron legacy",
+        "src": "/track/derezzed.m4a",
+        "cover": "/cover/tron.webp"
+      },
+      {
+        "title": "Disc wars",
+        "artist": "Tron legacy",
+        "src": "/track/discwars.m4a",
+        "cover": "/cover/tron.webp"
+      },
+      {
+        "title": "End of Line",
+        "artist": "Tron legacy",
+        "src": "/track/endline.m4a",
+        "cover": "/cover/tron.webp"
+      },
+      {
+        "title": "Fall",
+        "artist": "Tron legacy",
+        "src": "/track/fall.m4a",
+        "cover": "/cover/tron.webp"
+      },
+      {
+        "title": "Flynn lives",
+        "artist": "Tron legacy",
+        "src": "/track/flynnlives.m4a",
+        "cover": "/cover/tron.webp"
+      },
+      {
+        "title": "The Game has changed",
+        "artist": "Tron legacy",
+        "src": "/track/gamechanged.m4a",
+        "cover": "/cover/tron.webp"
+      },
+      {
+        "title": "Nocturne",
+        "artist": "Tron legacy",
+        "src": "/track/nocturne.m4a",
+        "cover": "/cover/tron.webp"
+      },
+      {
+        "title": "Outlands",
+        "artist": "Tron legacy",
+        "src": "/track/outlands.m4a",
+        "cover": "/cover/tron.webp"
+      },
+      {
+        "title": "Rectifier",
+        "artist": "Tron legacy",
+        "src": "/track/rectifier.m4a",
+        "cover": "/cover/tron.webp"
+      },
+      {
+        "title": "Rinzler",
+        "artist": "Tron legacy",
+        "src": "/track/rinzler.m4a",
+        "cover": "/cover/tron.webp"
+      },
+      {
+        "title": "Solar sailer",
+        "artist": "Tron legacy",
+        "src": "/track/solarsailer.m4a",
+        "cover": "/cover/tron.webp"
+      },
+      {
+        "title": "Tron Legacy",
+        "artist": "Tron legacy",
+        "src": "/track/tronlegacy.m4a",
+        "cover": "/cover/tron.webp"
+      },
+      {
+        "title": "Finale",
+        "artist": "Tron legacy",
+        "src": "/track/finale.m4a",
+        "cover": "/cover/tron.webp"
+      },
+      {
+        "title": "Almost home",
+        "artist": "The network",
+        "src": "/track/home.mp3",
+        "cover": "/cover/network.jpg"
+      },
+      {
+        "title": "Carbon prevails",
+        "artist": "The network",
+        "src": "/track/carbon.mp3",
+        "cover": "/cover/network.jpg"
+      },
+      {
+        "title": "Complication with optimistic Outcome",
+        "artist": "The network",
+        "src": "/track/complication.mp3",
+        "cover": "/cover/network.jpg"
+      },
+      {
+        "title": "Eventually we find our way",
+        "artist": "The network",
+        "src": "/track/way.mp3",
+        "cover": "/cover/network.jpg"
+      },
+      {
+        "title": "Every Night",
+        "artist": "The network",
+        "src": "/track/night.mp3",
+        "cover": "/cover/network.jpg"
+      },
+      {
+        "title": "Familier taste",
+        "artist": "The network",
+        "src": "/track/taste.mp3",
+        "cover": "/cover/network.jpg"
+      },
+      {
+        "title": "Hand covers bruise",
+        "artist": "The network",
+        "src": "/track/bruise.mp3",
+        "cover": "/cover/network.jpg"
+      },
+      {
+        "title": "In motion",
+        "artist": "The network",
+        "src": "/track/motion.mp3",
+        "cover": "/cover/network.jpg"
+      },
+      {
+        "title": "in the hall of mountain king",
+        "artist": "The network",
+        "src": "/track/king.mp3",
+        "cover": "/cover/network.jpg"
+      },
+      {
+        "title": "Intriguing possibilities",
+        "artist": "The network",
+        "src": "/track/possibility.mp3",
+        "cover": "/cover/network.jpg"
+      },
+      {
+        "title": "It catches up with you",
+        "artist": "The network",
+        "src": "/track/catch.mp3",
+        "cover": "/cover/network.jpg"
+      },
+      {
+        "title": "Magnetic",
+        "artist": "The network",
+        "src": "/track/magnetic.mp3",
+        "cover": "/cover/network.jpg"
+      },
+      {
+        "title": "On we march",
+        "artist": "The network",
+        "src": "/track/march.mp3",
+        "cover": "/cover/network.jpg"
+      },
+      {
+        "title": "Painted sun in abstract",
+        "artist": "The network",
+        "src": "/track/sun.mp3",
+        "cover": "/cover/network.jpg"
+      },
+      {
+        "title": "Penetration",
+        "artist": "The network",
+        "src": "/track/penetration.mp3",
+        "cover": "/cover/network.jpg"
+      },
+      {
+        "title": "pieces from the whole",
+        "artist": "The network",
+        "src": "/track/whole.mp3",
+        "cover": "/cover/network.jpg"
+      },
+      {
+        "title": "soft trees break the fall",
+        "artist": "The network",
+        "src": "/track/softtrees.mp3",
+        "cover": "/cover/network.jpg"
+      },
+      {
+        "title": "the gentle hum of Anxiety",
+        "artist": "The network",
+        "src": "/track/anxiety.mp3",
+        "cover": "/cover/network.jpg"
       }
     ]
   },
@@ -40,10 +298,58 @@
     "cover": "/cover/relax.jpg",
     "tracks": [
       {
-        "title": "Test Track",
-        "artist": "Unknown",
-        "src": "/track/test.mp3",
-        "cover": "/cover/test.jpg"
+        "title": "Blinding Lights Arabic",
+        "artist": "From the Hoood",
+        "src": "/track/blinding.mp3",
+        "cover": "/cover/blinding.jpg"
+      },
+      {
+        "title": "Nebo Nad Zemloy",
+        "artist": "Temur Temirov",
+        "src": "/track/temur.mp3",
+        "cover": "/cover/temur.jpg"
+      },
+      {
+        "title": "Maison",
+        "artist": "Lucie",
+        "src": "/track/maison.mp3",
+        "cover": "/cover/maison.jpeg"
+      },
+      {
+        "title": "Instant Crush",
+        "artist": "Daft Punk",
+        "src": "/track/crush.mp3",
+        "cover": "/cover/crush.jpg"
+      },
+      {
+        "title": "Wicked games",
+        "artist": "I dont know the artist",
+        "src": "/track/wicked.mp3",
+        "cover": "/cover/wicked.jpg"
+      },
+      {
+        "title": "Cold",
+        "artist": "Strongboi",
+        "src": "/track/cold.mp3",
+        "cover": "/cover/cold.jpg"
+      },
+      {
+        "title": "Summer rain",
+        "artist": "Zimmer 90",
+        "src": "/track/summer.mp3",
+        "cover": "/cover/ocean.jpg"
+      },
+      {
+        "title": "Ne soz Ne saz",
+        "artist": "Sufle",
+        "src": "/track/nesoz.mp3",
+        "cover": "/cover/nesoz.jpg"
+      },
+      {
+        "title": "Mad about you",
+        "artist": "Son Little",
+        "src": "/track/mad.mp3",
+        "cover": "/cover/cold.jpg"
       }
     ]
   }

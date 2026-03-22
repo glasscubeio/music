@@ -8,6 +8,7 @@ import {
   Repeat,
   Shuffle,
   Music,
+  Volume2,
 } from "lucide-react";
 import { motion } from "framer-motion";
 import {
@@ -17,51 +18,31 @@ import {
 } from "@/components/ui/popover";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "./components/ui/button";
-
-// ----------------------------------------
-// Types
-// ----------------------------------------
-interface Track {
-  title: string;
-  artist: string;
-  src: string;
-  cover: string;
-}
-
-interface Collection {
-  name: string;
-  cover: string;
-  tracks: Track[];
-}
+import { formatTime, type Collection } from "./lib/utils";
 
 export default function App() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [collections, setCollections] = useState<Collection[]>([]);
-  const [activeCollection, setActiveCollection] = useState<Collection | null>(
-    null,
-  );
+  const [active, setActive] = useState<Collection | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [duration, setDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
+  const [volume, setVolume] = useState(1);
   const [mode, setMode] = useState<"normal" | "shuffle" | "loop" | "loopOne">(
     "normal",
   );
+  const currentTrack = active?.tracks[currentIndex] || null;
 
-  // fetch metadata
   useEffect(() => {
     fetch("/metadata.json")
       .then((res) => res.json())
       .then(setCollections);
   }, []);
 
-  const currentTrack = activeCollection?.tracks[currentIndex] || null;
-
-  // ----------------------------------------
   // Player logic
-  // ----------------------------------------
   function playCollection(col: Collection) {
-    setActiveCollection(col);
+    setActive(col);
     setCurrentIndex(0);
     setIsPlaying(true);
   }
@@ -69,24 +50,54 @@ export default function App() {
   function togglePlay() {
     if (!audioRef.current) return;
 
-    if (isPlaying) {
-      audioRef.current.pause();
-    } else {
-      audioRef.current.play();
-    }
+    const audio = audioRef.current;
 
-    setIsPlaying(!isPlaying);
+    if (isPlaying) {
+      // FADE OUT
+      let v = audio.volume;
+
+      const fade = setInterval(() => {
+        v -= 0.05;
+
+        if (v <= 0.05) {
+          audio.volume = 0;
+          clearInterval(fade);
+          audio.pause();
+          setIsPlaying(false);
+        } else {
+          audio.volume = v;
+        }
+      }, 50);
+    } else {
+      // FADE IN (THIS WAS MISSING)
+      audio.play();
+
+      let v = audio.volume || 0;
+
+      const fade = setInterval(() => {
+        v += 0.05;
+
+        if (v >= volume) {
+          audio.volume = volume;
+          clearInterval(fade);
+        } else {
+          audio.volume = v;
+        }
+      }, 50);
+
+      setIsPlaying(true);
+    }
   }
 
   function next() {
-    if (!activeCollection) return;
+    if (!active) return;
 
     let nextIndex = currentIndex;
 
     if (mode === "shuffle") {
-      nextIndex = Math.floor(Math.random() * activeCollection.tracks.length);
+      nextIndex = Math.floor(Math.random() * active.tracks.length);
     } else {
-      nextIndex = (currentIndex + 1) % activeCollection.tracks.length;
+      nextIndex = (currentIndex + 1) % active.tracks.length;
     }
 
     setCurrentIndex(nextIndex);
@@ -94,11 +105,10 @@ export default function App() {
   }
 
   function prev() {
-    if (!activeCollection) return;
+    if (!active) return;
 
     const prevIndex =
-      (currentIndex - 1 + activeCollection.tracks.length) %
-      activeCollection.tracks.length;
+      (currentIndex - 1 + active.tracks.length) % active.tracks.length;
 
     setCurrentIndex(prevIndex);
     setIsPlaying(true);
@@ -110,15 +120,32 @@ export default function App() {
     setMode(modes[nextIndex] as any);
   }
 
-  // ----------------------------------------
-  // Sync audio
-  // ----------------------------------------
+  // Sync audio + FADE IN
   useEffect(() => {
     if (!audioRef.current || !currentTrack) return;
 
-    audioRef.current.src = currentTrack.src;
-    audioRef.current.play();
-  }, [currentIndex, activeCollection]);
+    const audio = audioRef.current;
+
+    audio.src = currentTrack.src;
+    audio.volume = 0;
+
+    audio.play();
+
+    let v = 0;
+
+    const fade = setInterval(() => {
+      v += 0.02;
+
+      if (v >= volume) {
+        audio.volume = volume;
+        clearInterval(fade);
+      } else {
+        audio.volume = v;
+      }
+    }, 50);
+
+    return () => clearInterval(fade);
+  }, [currentIndex, active]);
 
   // duration + progress
   useEffect(() => {
@@ -155,28 +182,54 @@ export default function App() {
 
     audio.addEventListener("ended", handleEnd);
     return () => audio.removeEventListener("ended", handleEnd);
-  }, [mode, currentIndex, activeCollection]);
+  }, [mode, currentIndex, active]);
 
-  function formatTime(time: number) {
-    if (!time) return "0:00";
-    const m = Math.floor(time / 60);
-    const s = Math.floor(time % 60);
-    return `${m}:${s.toString().padStart(2, "0")}`;
-  }
+  // volume control
+  useEffect(() => {
+    if (!audioRef.current) return;
+
+    audioRef.current.volume = volume;
+  }, [volume]);
+
+  // ⌨️ KEYBOARD CONTROLS
+  useEffect(() => {
+    function handleKey(e: any) {
+      if (!active) return;
+
+      switch (e.key) {
+        case " ":
+          e.preventDefault();
+          togglePlay();
+          break;
+        case ",":
+          prev();
+          break;
+        case ".":
+          next();
+          break;
+        case "l":
+          cycleMode();
+          break;
+      }
+    }
+
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [active, isPlaying, currentIndex, mode]);
 
   return (
     <div className="h-screen w-screen text-white overflow-hidden relative">
       {/* background */}
       {currentTrack && (
         <div
-          className="absolute inset-0 bg-cover bg-center scale-110 blur-3xl opacity-40"
+          className="absolute inset-0 bg-cover bg-center scale-110 blur-3xl opacity-60"
           style={{ backgroundImage: `url(${currentTrack.cover})` }}
         />
       )}
       <div className="absolute inset-0 bg-black/60 backdrop-blur-2xl" />
 
       {/* COLLECTIONS */}
-      {!activeCollection && (
+      {!active && (
         <div className="relative flex flex-col md:flex-row items-center justify-center gap-6 md:gap-10 px-6 h-full">
           {collections.map((col, i) => (
             <div
@@ -195,34 +248,72 @@ export default function App() {
       )}
 
       {/* PLAYER */}
-      {activeCollection && (
+      {active && (
         <div className="relative flex flex-col h-full justify-between">
-          {/* top collections */}
-          <div className="flex gap-3 p-4 flex-wrap">
-            {collections.map((col, i) => (
-              <Button
-                variant="outline"
-                key={i}
-                onClick={() => playCollection(col)}
-                className="px-4 py-2 bg-white/10 rounded-full border border-white/20 backdrop-blur"
-              >
-                {col.name}
-              </Button>
-            ))}
+          {/* TOP BAR */}
+          <div className="flex justify-between items-center p-4">
+            <div className="flex gap-3 flex-wrap">
+              {collections.map((col, i) => (
+                <Button
+                  key={i}
+                  onClick={() => playCollection(col)}
+                  className="bg-white/10 border border-white/20"
+                >
+                  {col.name}
+                </Button>
+              ))}
+            </div>
+
+            {/* 🔊 volume (vertical hover) */}
+            <div className="relative group flex items-center">
+              <div className="p-2 rounded-full bg-white/10 border border-white/20 cursor-pointer">
+                <Volume2 />
+              </div>
+
+              <div className="absolute right-0 top-12 opacity-0 group-hover:opacity-100 transition">
+                <div className="flex flex-col items-center bg-white/10 backdrop-blur-xl border border-white/20 rounded-xl p-2">
+                  <input
+                    type="range"
+                    min={0}
+                    max={1}
+                    step={0.01}
+                    value={volume}
+                    onChange={(e) => {
+                      const v = Number(e.target.value);
+                      setVolume(v);
+                      if (audioRef.current) {
+                        audioRef.current.volume = v;
+                      }
+                    }}
+                    className="h-24 w-2 accent-white"
+                    style={{ writingMode: "vertical-lr" }}
+                  />
+                </div>
+              </div>
+            </div>
           </div>
 
-          {/* center */}
+          {/* CENTER */}
           <motion.div
             key={currentTrack?.src}
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.3 }}
-            className="flex flex-col items-center gap-6"
+            className="flex flex-col items-center gap-6 px-4"
           >
             {currentTrack ? (
               <img
                 src={currentTrack.cover}
-                className="w-64 md:w-lg rounded-2xl shadow-2xl"
+                className="
+              w-full 
+              max-w-[320px] 
+              md:max-w-105 
+              lg:max-w-120 
+              aspect-square 
+              object-cover 
+              rounded-2xl 
+              shadow-2xl
+            "
               />
             ) : (
               <Music size={80} />
@@ -260,24 +351,20 @@ export default function App() {
 
               {/* controls */}
               <div className="flex items-center justify-between">
-                {/* list */}
                 <Popover>
                   <PopoverTrigger asChild>
-                    <button>
+                    <button className="hover:border rounded-lg p-1">
                       <List />
                     </button>
                   </PopoverTrigger>
 
-                  <PopoverContent
-                    side="top"
-                    className="w-80 p-2 bg-white/10 backdrop-blur-2xl border border-white/20 rounded-xl"
-                  >
-                    <ScrollArea className="h-72 pr-2">
-                      {activeCollection.tracks.map((t, i) => (
+                  <PopoverContent className="w-80 p-2 bg-white/10 backdrop-blur-2xl border border-white/20 rounded-xl">
+                    <ScrollArea className="h-72">
+                      {active.tracks.map((t, i) => (
                         <div
                           key={i}
                           onClick={() => setCurrentIndex(i)}
-                          className={`flex items-center gap-3 p-2 rounded-lg cursor-pointer hover:bg-white/10 ${
+                          className={`flex items-center mb-1 gap-3 p-2 rounded-lg cursor-pointer hover:bg-white/10 ${
                             i === currentIndex ? "bg-white/10" : ""
                           }`}
                         >
@@ -298,34 +385,31 @@ export default function App() {
                 </Popover>
 
                 <div className="flex items-center gap-4">
-                  <button
-                    className="hover:border-2 rounded-full p-1"
-                    onClick={prev}
-                  >
+                  <button onClick={prev}>
                     <SkipBack />
                   </button>
 
                   <button
                     onClick={togglePlay}
-                    className="bg-white text-black p-3 hover:bg-gray-300 rounded-full"
+                    className="bg-white text-black p-3 rounded-full"
                   >
                     {isPlaying ? <Pause /> : <Play />}
                   </button>
 
-                  <button
-                    className="hover:border-2 rounded-full p-1"
-                    onClick={next}
-                  >
+                  <button onClick={next}>
                     <SkipForward />
                   </button>
                 </div>
 
-                {/* mode */}
                 <button onClick={cycleMode}>
                   {mode === "shuffle" && <Shuffle />}
-                  {mode === "loop" && <Repeat />}
-                  {mode === "loopOne" && <Repeat className="text-green-400" />}
-                  {mode === "normal" && <Repeat className="opacity-40" />}
+                  {mode === "loop" && <Repeat className="text-green-400" />}
+                  {mode === "loopOne" && (
+                    <div className="flex">
+                      <Repeat className="text-green-400" />1
+                    </div>
+                  )}
+                  {mode === "normal" && <Repeat />}
                 </button>
               </div>
             </div>
