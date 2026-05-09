@@ -117,7 +117,7 @@ export default function App() {
   function cycleMode() {
     const modes = ["normal", "shuffle", "loop", "loopOne"];
     const nextIndex = (modes.indexOf(mode) + 1) % modes.length;
-    setMode(modes[nextIndex] as any);
+    setMode(modes[nextIndex] as "normal" | "shuffle" | "loop" | "loopOne");
   }
 
   // Sync audio + FADE IN
@@ -145,7 +145,7 @@ export default function App() {
     }, 50);
 
     return () => clearInterval(fade);
-  }, [currentIndex, active]);
+  }, [currentIndex, active, currentTrack, volume]);
 
   // duration + progress
   useEffect(() => {
@@ -193,7 +193,7 @@ export default function App() {
 
   // ⌨️ KEYBOARD CONTROLS
   useEffect(() => {
-    function handleKey(e: any) {
+    function handleKey(e: KeyboardEvent) {
       if (!active) return;
 
       switch (e.key) {
@@ -305,13 +305,13 @@ export default function App() {
               <img
                 src={currentTrack.cover}
                 className="
-              w-full 
-              max-w-[320px] 
-              md:max-w-105 
-              lg:max-w-120 
-              aspect-square 
-              object-cover 
-              rounded-2xl 
+              w-full
+              max-w-[320px]
+              md:max-w-105
+              lg:max-w-120
+              aspect-square
+              object-cover
+              rounded-2xl
               shadow-2xl
             "
               />
