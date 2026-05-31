@@ -12,6 +12,8 @@ Built with:
 
 ---
 
+this is my playlist!
+
 ## ✨ Features
 
 ### 🎵 Core Player
