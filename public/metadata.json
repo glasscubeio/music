@@ -310,6 +310,24 @@
         "cover": "/cover/blinding.jpg"
       },
       {
+        "title": "Chamber of reflection",
+        "artist": "Mac Demarco",
+        "src": "/track/demarco.mp3",
+        "cover": "/cover/demarco.png"
+      },
+      {
+        "title": "Nao Adianta",
+        "artist": "Trio Mocoto",
+        "src": "/track/adianta.mp3",
+        "cover": "/cover/adeanta.png"
+      },
+      {
+        "title": "Dirty",
+        "artist": "Stefani Kimber",
+        "src": "/track/dirty.mp3",
+        "cover": "/cover/dirty.png"
+      },
+      {
         "title": "Sunday mornin comin down",
         "artist": "Kris Kristofferson",
         "src": "/track/morning.mp3",
