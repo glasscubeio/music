@@ -21,7 +21,8 @@ this is my playlist!
 - Play / Pause / Next / Previous
 - Multiple collections (fetched from `/public/metadata.json`)
 - Shuffle / Loop / Loop One modes
-
+![screenshot](/public/desk.png)
+![screenshot](/public/mobile.png)
 ---
 
 ### 🎚️ Smooth Audio Experience

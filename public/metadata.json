@@ -70,6 +70,12 @@
         "cover": "/cover/dirty.png"
       },
       {
+        "title": "Gecelerde",
+        "artist": "M lisa",
+        "src": "/track/relax/gecelerde.mp3",
+        "cover": "/cover/ocean.jpg"
+      },
+      {
         "title": "Mad about you",
         "artist": "Son Little",
         "src": "/track/relax/mad.mp3",
@@ -94,6 +100,12 @@
         "cover": "/cover/twoofus.jpg"
       },
       {
+        "title": "ucurum",
+        "artist": "M lisa",
+        "src": "/track/relax/ucurum.mp3",
+        "cover": "/cover/listen.jpg"
+      },
+      {
         "title": "Wicked games",
         "artist": "I dont know the artist",
         "src": "/track/relax/wicked.mp3",
@@ -102,7 +114,7 @@
       {
         "title": "Meow Meow",
         "artist": "Meow",
-        "src": "/track/relax/meow.mp3",
+        "src": "/track/relax/meows.mp3",
         "cover": "/cover/cold.jpg"
       }
     ]
