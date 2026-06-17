@@ -182,6 +182,7 @@ export default function App() {
 
     audio.addEventListener("ended", handleEnd);
     return () => audio.removeEventListener("ended", handleEnd);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mode, currentIndex, active]);
 
   // volume control
@@ -215,6 +216,7 @@ export default function App() {
 
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [active, isPlaying, currentIndex, mode]);
 
   return (
