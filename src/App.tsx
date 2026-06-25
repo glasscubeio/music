@@ -19,8 +19,10 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "./components/ui/button";
 import { formatTime, type Collection } from "./lib/utils";
+import { useWakeLock } from "./components/wakeLock";
 
 export default function App() {
+  useWakeLock();
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [collections, setCollections] = useState<Collection[]>([]);
   const [active, setActive] = useState<Collection | null>(null);
