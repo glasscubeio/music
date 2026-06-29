@@ -1,19 +1,22 @@
 import { useEffect, useRef } from "react";
 
 export function useWakeLock() {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const wakeLockRef = useRef<any>(null);
-
+  const wakeLockRef = useRef<WakeLockSentinel | null>(null);
   useEffect(() => {
     async function enableWakeLock() {
       try {
-        if ("wakeLock" in navigator) {
-          wakeLockRef.current = await navigator.wakeLock.request("screen");
+        if (!("wakeLock" in navigator)) return;
+        if (wakeLockRef.current && !wakeLockRef.current.released) return;
 
-          wakeLockRef.current.addEventListener("release", () => {
-            console.log("Wake Lock released");
-          });
-        }
+        const sentinel = await navigator.wakeLock.request("screen");
+        wakeLockRef.current = sentinel;
+
+        sentinel.addEventListener("release", () => {
+          console.log("Wake Lock released");
+          if (wakeLockRef.current === sentinel) {
+            wakeLockRef.current = null;
+          }
+        });
       } catch (err) {
         console.error("Wake Lock failed:", err);
       }
@@ -22,7 +25,10 @@ export function useWakeLock() {
     enableWakeLock();
 
     const handleVisibility = async () => {
-      if (document.visibilityState === "visible" && !wakeLockRef.current) {
+      if (
+        document.visibilityState === "visible" &&
+        (!wakeLockRef.current || wakeLockRef.current.released)
+      ) {
         await enableWakeLock();
       }
     };
@@ -32,9 +38,7 @@ export function useWakeLock() {
     return () => {
       document.removeEventListener("visibilitychange", handleVisibility);
 
-      if (wakeLockRef.current) {
-        wakeLockRef.current.release();
-      }
+      wakeLockRef.current?.release().catch(() => {});
     };
   }, []);
 }
